@@ -19,7 +19,6 @@ export const metadata = {
       src: "https://tapi.bale.ai/miniapp.js?1",
       strategy: "beforeInteractive", // or 'lazyOnload', 'afterInteractive'
     },
-    // Add other scripts here
   ],
   // other: {
   //   "my-custom-element": '<meta name="custom" content="value" />',
