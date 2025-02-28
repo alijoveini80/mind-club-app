@@ -14,12 +14,12 @@ const geistMono = Geist_Mono({
 export const metadata = {
   title: "My Telegram Mini App",
   description: "A simple Telegram Mini App built with Next.js",
-  scripts: [
-    {
-      src: "https://tapi.bale.ai/miniapp.js?1",
-      strategy: "beforeInteractive", // or 'lazyOnload', 'afterInteractive'
-    },
-  ],
+  // scripts: [
+  //   {
+  //     src: "https://tapi.bale.ai/miniapp.js?1",
+  //     strategy: "beforeInteractive", // or 'lazyOnload', 'afterInteractive'
+  //   },
+  // ],
   // other: {
   //   "my-custom-element": '<meta name="custom" content="value" />',
   // },
@@ -28,6 +28,9 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
+      <head>
+        <script src="https://tapi.bale.ai/miniapp.js?1"></script>
+      </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
