@@ -1,16 +1,22 @@
 "use client";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
+
 export default function Home() {
+  const [firstName, setFirstName] = useState(null);
+
   useEffect(() => {
-    if (typeof window.Bale !== "undefined") {
-      // Code that uses window, only on client-side
-      console.log(window.Bale.initData.user.first_name);
+    if (
+      typeof window !== "undefined" &&
+      window.Bale?.WebApp?.initDataUnsafe?.user?.first_name
+    ) {
+      setFirstName(window.Bale.WebApp.initDataUnsafe.user.first_name);
     }
-  }, []); // Run only once on mount
+  }, []);
+
   return (
     <>
       <h1>Home</h1>
-      <p id="wellcome">wellcome, user</p>
+      <p id="welcome">Welcome, {firstName || "user"}</p>
     </>
   );
 }
