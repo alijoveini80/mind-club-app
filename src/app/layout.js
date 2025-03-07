@@ -1,3 +1,5 @@
+import ScriptLoader from "@/app/components/ScriptLoader";
+import ThemeProvider from "@/app/components/ThemeProvider";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
@@ -22,6 +24,7 @@ export default function RootLayout({ children }) {
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
+        <ScriptLoader />
         {children}
       </body>
     </html>
