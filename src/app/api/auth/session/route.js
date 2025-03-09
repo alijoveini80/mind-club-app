@@ -5,7 +5,7 @@ import { verifySession } from "@/lib/dal";
 export async function GET() {
   const session = await verifySession();
   if (!session) {
-    return NextResponse.json(null, { status: 401 });
+    return NextResponse.json({ error: "not found" }, { status: 401 });
   }
   return NextResponse.json(
     { ok: true, userid: session.userid },

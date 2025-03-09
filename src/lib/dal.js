@@ -12,14 +12,14 @@ export const verifySession = cache(async () => {
 
   // If the cookie doesn't exist, redirect immediately
   if (!cookie) {
-    redirect("/error");
+    return null;
   }
 
   const session = await decrypt(cookie);
 
   // If decryption fails or session is invalid, redirect
   if (!session || !session.userid) {
-    redirect("/error");
+    return null;
   }
 
   return { isAuth: true, userid: session.userid };
