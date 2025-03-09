@@ -17,6 +17,8 @@ export async function createSession(userId) {
     sameSite: "lax",
     path: "/",
   });
+
+  return session;
 }
 
 export async function updateSession() {
