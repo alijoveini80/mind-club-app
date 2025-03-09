@@ -2,6 +2,7 @@ import { createSession, deleteSession } from "@/lib/session";
 import { NextResponse } from "next/server";
 import { verifySession } from "@/lib/dal";
 import { cookies } from "next/headers";
+import { decrypt } from "@/lib/session";
 
 export async function GET(request) {
   try {
