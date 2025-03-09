@@ -7,7 +7,7 @@ export async function POST(req) {
   const { userid } = await req.json();
   session = await createSession(userid);
 
-  return Response.json(session);
+  return Response.json({ ok: true, session: session });
 }
 
 export async function DELETE() {

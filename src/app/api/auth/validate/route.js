@@ -31,7 +31,7 @@ export async function POST(req, res) {
     );
     if (!response.ok) {
       return NextResponse.json(
-        { isValid: true, error: response.json() },
+        { isValid: true, error: "Session creation failed" },
         { status: 500 }
       );
     }
