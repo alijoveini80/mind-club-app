@@ -6,9 +6,9 @@ import { cookies } from "next/headers";
 export async function GET(request) {
   try {
     // const session = await verifySession();
-    // const cookieStore = await cookies();
-    // const cookie = cookieStore.get("session")?.value;
-    const cookie = request.cookies.get(session)?.value;
+    const cookieStore = await cookies();
+    const cookie = cookieStore.get("session")?.value;
+    // const cookie = request.cookies.get(session)?.value;
 
     // If the cookie doesn't exist, redirect immediately
     if (!cookie) {
