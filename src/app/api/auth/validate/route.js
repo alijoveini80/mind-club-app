@@ -1,14 +1,8 @@
-// app/api/auth/validate/route.js
 import { NextResponse } from "next/server";
 import { validateInitData } from "@/lib/validate";
-import { sessionOptions, defaultSession, sleep } from "@/lib/session";
 
-export async function POST(req, res) {
-  // Changed handler function name
-  // try {
+export async function POST(req) {
   const { initData, userid } = await req.json();
-  // console.log(initData);
-  // console.log(userid);
 
   if (!initData) {
     return NextResponse.json(
@@ -29,6 +23,7 @@ export async function POST(req, res) {
         body: JSON.stringify({ userid: userid }),
       }
     );
+
     if (!response.ok) {
       return NextResponse.json(
         { isValid: true, error: "Session creation failed" },
@@ -36,9 +31,18 @@ export async function POST(req, res) {
       );
     }
 
-    console.log(response);
+    // Extract Set-Cookie from the fetch response
+    const setCookie = response.headers.get("set-cookie");
 
-    return NextResponse.json({ isValid: true });
+    // Create the NextResponse
+    const nextResponse = NextResponse.json({ isValid: true });
+
+    // If there is a Set-Cookie header, attach it to the response
+    if (setCookie) {
+      nextResponse.headers.set("Set-Cookie", setCookie);
+    }
+
+    return nextResponse;
   } else {
     return NextResponse.json(
       { isValid: false, error: "Invalid hash" },
@@ -46,13 +50,3 @@ export async function POST(req, res) {
     );
   }
 }
-// catch (error) {
-//   console.error("Validation error:", error);
-//   return NextResponse.json(
-//     { isValid: false, error: "Validation failed" },
-//     { status: 500 }
-//   );
-// }
-// }
-
-// export const POST = withSessionRoute(validationHandler); // Export the wrapped handler
