@@ -7,7 +7,10 @@ export async function GET() {
   if (!session) {
     return new NextResponse.json(null, { status: 401 });
   }
-  return new NextResponse.json({ userid: session.userid }, { status: 200 });
+  return new NextResponse.json(
+    { ok: true, userid: session.userid },
+    { status: 200 }
+  );
 }
 
 export async function POST(req) {
