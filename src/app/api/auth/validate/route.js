@@ -40,6 +40,7 @@ export async function POST(req) {
     // If there is a Set-Cookie header, attach it to the response
     if (setCookie) {
       nextResponse.headers.set("Set-Cookie", setCookie);
+      response.headers.set("Access-Control-Allow-Credentials", "true");
     }
 
     return nextResponse;
