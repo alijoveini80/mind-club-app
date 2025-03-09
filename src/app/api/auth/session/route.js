@@ -5,9 +5,9 @@ import { NextResponse } from "next/server";
 
 export async function POST(req) {
   const { userid } = await req.json();
-  session = await createSession(userid);
+  await createSession(userid);
 
-  return Response.json({ ok: true, session: session });
+  return NextResponse.json({ ok: true }, { status: 200 });
 }
 
 export async function DELETE() {

@@ -9,14 +9,14 @@ function ClientComponent() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
-    // Get initData from Telegram WebApp API
-    const data = window.Bale?.WebApp?.initData || ""; // Handle cases outside Telegram
+    // Get initData from Bale WebApp API
+    const data = window.Bale?.WebApp?.initData || ""; // Handle cases outside Bale
     setInitData(data);
 
     // Validate user with initData
     const validateUser = async () => {
       if (!data) {
-        setIsValidUser(false); // Not in Telegram context
+        setIsValidUser(false); // Not in Bale context
         setLoadingSession(false);
         return;
       }
@@ -67,7 +67,7 @@ function ClientComponent() {
   if (!isValidUser) {
     return (
       <div>
-        <p>Error: Invalid user. Please launch this Mini App from Telegram.</p>
+        <p>Error: Invalid user. Please launch this Mini App from Bale.</p>
       </div>
     );
   }
@@ -89,9 +89,9 @@ function ClientComponent() {
           are logged in.
         </p>
       ) : (
-        <p>Welcome, Telegram User! You are logged in.</p>
+        <p>Welcome, Bale User! You are logged in.</p>
       )}
-      {/* <p>Welcome, Telegram User! You are logged in.</p> */}
+      {/* <p>Welcome, Bale User! You are logged in.</p> */}
       {/* Your Mini App content goes here */}
       <button onClick={logout}>Logout</button> {/* Optional logout button */}
     </div>

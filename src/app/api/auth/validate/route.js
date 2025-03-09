@@ -38,7 +38,7 @@ export async function POST(req, res) {
 
     console.log(response);
 
-    return NextResponse.json({ isValid: true });
+    return NextResponse.json({ isValid: true }, { status: 200 });
   } else {
     return NextResponse.json(
       { isValid: false, error: "Invalid hash" },
