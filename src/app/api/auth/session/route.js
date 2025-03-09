@@ -5,9 +5,9 @@ import { verifySession } from "@/lib/dal";
 export async function GET() {
   const session = await verifySession();
   if (!session) {
-    return new Response.json(null, { status: 401 });
+    return new NextResponse.json(null, { status: 401 });
   }
-  return new Response.json({ userid: session.userid }, { status: 200 });
+  return new NextResponse.json({ userid: session.userid }, { status: 200 });
 }
 
 export async function POST(req) {
