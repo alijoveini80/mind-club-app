@@ -22,7 +22,7 @@ function ClientComponent() {
       }
       const response = await fetch("/api/auth/validate", {
         method: "POST",
-        // credentials: "include",
+        credentials: "include",
         headers: {
           "Content-Type": "application/json",
         },

@@ -16,7 +16,7 @@ export async function createSession(userId) {
     expires: expiresAt,
     sameSite: "none",
     path: "/",
-    domain: "bale.ai",
+    partitioned: true,
   });
 
   return session;
