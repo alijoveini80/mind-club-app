@@ -1,3 +1,4 @@
+// lib/dal.js
 import "server-only";
 
 import { cookies } from "next/headers";
@@ -6,10 +7,18 @@ import { redirect } from "next/navigation";
 import { cache } from "react";
 
 export const verifySession = cache(async () => {
-  const cookie = (await cookies()).get("session")?.value;
+  const cookieStore = await cookies();
+  const cookie = cookieStore.get("session")?.value;
+
+  // If the cookie doesn't exist, redirect immediately
+  if (!cookie) {
+    redirect("/error");
+  }
+
   const session = await decrypt(cookie);
 
-  if (!session.userid) {
+  // If decryption fails or session is invalid, redirect
+  if (!session || !session.userid) {
     redirect("/error");
   }
 
