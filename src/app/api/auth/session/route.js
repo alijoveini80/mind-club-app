@@ -34,7 +34,7 @@ export async function GET(request) {
     );
   } catch (error) {
     return NextResponse.json(
-      { error: "Invalid request", er: error },
+      { error: "Invalid request", er: error.message },
       { status: 400 }
     );
   }
