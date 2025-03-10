@@ -18,9 +18,9 @@ export const verifySession = cache(async () => {
   const session = await decrypt(cookie);
 
   // If decryption fails or session is invalid, redirect
-  if (!session || !session.userid) {
+  if (!session || !session.userId) {
     return null;
   }
 
-  return { isAuth: true, userid: session.userid };
+  return { isAuth: true, userId: session.userId };
 });

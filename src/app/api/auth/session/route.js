@@ -4,56 +4,46 @@ import { verifySession } from "@/lib/dal";
 import { cookies } from "next/headers";
 import { decrypt } from "@/lib/session";
 
-export async function GET(request) {
+export async function GET() {
   try {
     // const session = await verifySession();
     const cookieStore = await cookies();
     const cookie = cookieStore.get("session")?.value;
-    // const cookie = request.cookies.get(session)?.value;
+    const session = await decrypt(cookie);
 
     // If the cookie doesn't exist, redirect immediately
-    if (!cookie) {
+    if (!session) {
       return NextResponse.json({ error: "cookie not found" }, { status: 401 });
     }
 
-    const session = await decrypt(cookie);
-
-    // If decryption fails or session is invalid, redirect
-    if (!session || !session.userid) {
-      return NextResponse.json(
-        { error: "decryption fails or session is invalid" },
-        { status: 401 }
-      );
-    }
-
-    // if (!session) {
-    //   return NextResponse.json({ error: "not found" }, { status: 401 });
-    // }
-    return NextResponse.json(
-      { ok: true, userid: session.userid },
-      { status: 200 }
-    );
+    return NextResponse.json(session, { status: 200 });
+    // return NextResponse.json({ userId: session.userId }, { status: 200 });
   } catch (error) {
     return NextResponse.json(
-      { error: "Invalid request", er: error.message, session: session },
+      { error: "Invalid request", er: error.message },
       { status: 400 }
     );
   }
 }
 
-export async function POST(req) {
+export async function POST(request) {
   try {
-    const { userid } = await req.json(); // Correct way to parse JSON
-    await createSession(userid);
+    const { userId } = await request.json(); // Correct way to parse JSON
+    const session = await createSession(userId);
+    console.log("session created: ", session);
 
-    return NextResponse.json({ ok: true }, { status: 200 });
+    return NextResponse.json({ message: "session created" }, { status: 200 });
   } catch (error) {
     return NextResponse.json({ error: "Invalid request" }, { status: 400 });
   }
 }
 
-export async function DELETE() {
+export async function DELETE(request) {
   deleteSession();
 
-  return NextResponse.redirect("/");
+  return NextResponse.json(
+    { message: "Session deleted successfully" },
+    { status: 200 }
+  );
+  // return NextResponse.redirect(new URL("/", request.url));
 }

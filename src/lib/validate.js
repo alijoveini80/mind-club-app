@@ -18,7 +18,7 @@ export function validateInitData(initData) {
     // Generate the secret key using HMAC-SHA256 with BOT_TOKEN
     const secretKey = crypto
       .createHmac("sha256", Buffer.from("WebAppData"))
-      .update(process.env.BOT_TOKEN)
+      .update("BaleToken")
       .digest();
 
     // Calculate the hash

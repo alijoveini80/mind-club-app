@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import { validateInitData } from "@/lib/validate";
 
 export async function POST(req) {
-  const { initData, userid } = await req.json();
+  const { initData, userId } = await req.json();
 
   if (!initData) {
     return NextResponse.json(
@@ -20,7 +20,7 @@ export async function POST(req) {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ userid: userid }),
+        body: JSON.stringify({ userId: userId }),
       }
     );
 
@@ -33,6 +33,7 @@ export async function POST(req) {
 
     // Extract Set-Cookie from the fetch response
     const setCookie = response.headers.get("set-cookie");
+    console.log("setCookie ", setCookie);
 
     // Create the NextResponse
     const nextResponse = NextResponse.json({ isValid: true });

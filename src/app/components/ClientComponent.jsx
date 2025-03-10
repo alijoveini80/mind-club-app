@@ -1,8 +1,10 @@
 "use client"; // This is a Client Component
 
 import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 
 function ClientComponent() {
+  const router = useRouter();
   const [initData, setInitData] = useState(null);
   const [isValidUser, setIsValidUser] = useState(false);
   const [loadingSession, setLoadingSession] = useState(true);
@@ -20,6 +22,10 @@ function ClientComponent() {
         setLoadingSession(false);
         return;
       }
+      console.log("Validating user with initData: ");
+      const unsafeData = window.Bale?.WebApp?.initDataUnsafe || "";
+      console.log("unsafeData: \n", unsafeData);
+
       const response = await fetch("/api/auth/validate", {
         method: "POST",
         // credentials: "include",
@@ -28,7 +34,7 @@ function ClientComponent() {
         },
         body: JSON.stringify({
           initData: data,
-          userid: window.Bale?.WebApp?.initDataUnsafe?.user?.id,
+          userId: window.Bale?.WebApp?.initDataUnsafe?.user?.id,
         }),
       });
       if (response.ok) {
@@ -92,6 +98,9 @@ function ClientComponent() {
       ) : (
         <p>Welcome, Bale User! You are logged in.</p>
       )}
+      <button type="button" onClick={() => router.push("/dashboard")}>
+        Dashboard
+      </button>
       {/* <p>Welcome, Bale User! You are logged in.</p> */}
       {/* Your Mini App content goes here */}
       <button onClick={logout}>Logout</button> {/* Optional logout button */}
