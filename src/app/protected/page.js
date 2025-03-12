@@ -1,6 +1,6 @@
 import { verifySession } from "@/lib/dal";
 import ProtectPage from "@/app/components/ProtectPage";
-export default async function Dashboard() {
+export default async function ProtectedPage() {
   const session = await verifySession();
 
   return (
@@ -8,10 +8,7 @@ export default async function Dashboard() {
       {!session ? (
         <h1>Not authenticated</h1>
       ) : (
-        <>
-          <h1>Dashboard</h1>
-          <ProtectPage title="dashboard" userId={session.userId} />
-        </>
+        <ProtectPage title="protected" userId={session.userId} />
       )}
     </>
   );

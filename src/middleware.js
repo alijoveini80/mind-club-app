@@ -4,7 +4,7 @@ import { cookies } from "next/headers";
 import { verifySession } from "@/lib/dal";
 
 // 1. Specify protected and public routes
-const protectedRoutes = ["/dashboard"];
+const protectedRoutes = ["/dashboard", "/protected"];
 const publicRoutes = ["/", "/home"];
 
 export async function middleware(req) {

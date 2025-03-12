@@ -6,15 +6,15 @@ const secretKey = process.env.SESSION_SECRET;
 const encodedKey = new TextEncoder().encode(secretKey);
 
 export async function createSession(userId) {
-  // const expiresAt = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000);
-  // const session = await encrypt({ userId, expiresAt });
-  const session = await encrypt({ userId });
+  const expiresAt = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000);
+  const session = await encrypt({ userId, expiresAt });
+  // const session = await encrypt({ userId });
   const cookieStore = await cookies();
 
   cookieStore.set("session", session, {
     httpOnly: true,
     secure: true,
-    // expires: expiresAt,
+    expires: expiresAt,
     sameSite: "none",
     path: "/",
     partitioned: true,
@@ -45,8 +45,18 @@ export async function createSession(userId) {
 
 export async function deleteSession() {
   const cookieStore = await cookies();
-  cookieStore.delete("session");
-  console.log("Session cookie deleted.");
+  const value = cookieStore.get("session")?.value;
+  console.log(value);
+  if (value) {
+    cookieStore.set("session", value, {
+      httpOnly: true,
+      secure: true,
+      expires: new Date(0), // Expire the cookie immediately
+      sameSite: "none",
+      path: "/",
+      partitioned: true,
+    });
+  }
   const session = (await cookies()).get("session")?.value;
 
   if (!session) {

@@ -26,23 +26,38 @@ function ClientComponent() {
       const unsafeData = window.Bale?.WebApp?.initDataUnsafe || "";
       console.log("unsafeData: \n", unsafeData);
 
-      const response = await fetch("/api/auth/validate", {
-        method: "POST",
-        // credentials: "include",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          initData: data,
-          userId: window.Bale?.WebApp?.initDataUnsafe?.user?.id,
-        }),
-      });
-      if (response.ok) {
-        setIsValidUser(true);
-      } else {
+      try {
+        const response = await fetch("/api/auth/validate", {
+          method: "POST",
+          // credentials: "include",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            initData: data,
+            userId: window.Bale?.WebApp?.initDataUnsafe?.user?.id,
+          }),
+        });
+        console.log(response);
+        if (response.ok) {
+          const res = await response.json();
+          if (res?.authFromCache) {
+            setIsValidUser(true);
+            console.log("authFromCache: setIsValidUser true");
+          } else {
+            setIsValidUser(true);
+            console.log("validate: setIsValidUser true");
+          }
+        } else {
+          setIsValidUser(false);
+        }
+      } catch (error) {
+        console.log("Validation Error:", error);
         setIsValidUser(false);
+      } finally {
+        setLoadingSession(false); // Validation complete
+        // console.log("setLoadingSession false");
       }
-      setLoadingSession(false); // Validation complete
     };
 
     validateUser();
@@ -65,8 +80,13 @@ function ClientComponent() {
   }, [isValidUser]);
 
   const logout = async () => {
-    await fetch("/api/auth/session", { method: "DELETE" });
-    setIsLoggedIn(false); // Update client state to reflect logout
+    await fetch("/api/auth/session", { method: "DELETE" })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data.message);
+        window.location.href = data.redirectTo; // Redirect after receiving JSON
+        setIsLoggedIn(false); // Update client state to reflect logout
+      });
   };
 
   if (loadingSession) return <p>Loading session...</p>;
@@ -98,12 +118,19 @@ function ClientComponent() {
       ) : (
         <p>Welcome, Bale User! You are logged in.</p>
       )}
-      <button type="button" onClick={() => router.push("/dashboard")}>
+      <button
+        className="bg-amber-700 p-2 m-4 mr-0 rounded-2xl"
+        type="button"
+        onClick={() => router.push("/dashboard")}
+      >
         Dashboard
       </button>
       {/* <p>Welcome, Bale User! You are logged in.</p> */}
       {/* Your Mini App content goes here */}
-      <button onClick={logout}>Logout</button> {/* Optional logout button */}
+      <button className="bg-red-900 p-2 m-4 rounded-2xl" onClick={logout}>
+        Logout
+      </button>{" "}
+      {/* Optional logout button */}
     </div>
   );
 }

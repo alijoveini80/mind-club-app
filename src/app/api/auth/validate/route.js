@@ -1,5 +1,8 @@
 import { NextResponse } from "next/server";
 import { validateInitData } from "@/lib/validate";
+import { verifySession } from "@/lib/dal";
+import { cookies } from "next/headers";
+import { decrypt } from "@/lib/session";
 
 export async function POST(req) {
   const { initData, userId } = await req.json();
@@ -11,7 +14,21 @@ export async function POST(req) {
     );
   }
 
+  // const verify = await verifySession();
+  const cookieStore = await cookies();
+  const cookie = cookieStore.get("session")?.value;
+  if (cookie) {
+    const session = await decrypt(cookie);
+    if (session.userId == userId) {
+      return NextResponse.json(
+        { authFromCache: true, message: "verified from cookies" },
+        { status: 200 }
+      );
+    }
+  }
+
   const isValid = validateInitData(initData);
+
   if (isValid) {
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_BASE_URL}/api/auth/session`,
@@ -33,7 +50,7 @@ export async function POST(req) {
 
     // Extract Set-Cookie from the fetch response
     const setCookie = response.headers.get("set-cookie");
-    console.log("setCookie ", setCookie);
+    // console.log("setCookie ", setCookie);
 
     // Create the NextResponse
     const nextResponse = NextResponse.json({ isValid: true });

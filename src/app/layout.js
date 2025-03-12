@@ -1,5 +1,8 @@
 import ScriptLoader from "@/app/components/ScriptLoader";
-import ThemeProvider from "@/app/components/ThemeProvider";
+// import ThemeProvider from "@/app/components/ThemeProvider";
+import { ThemeProvider } from "@/app/components/ThemeContext";
+import Header from "@/app/components/HeaderComponent";
+import CloseHandler from "@/app/components/CloseHandler";
 // import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
@@ -25,8 +28,11 @@ export default function RootLayout({ children }) {
       // className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <ScriptLoader />
-        <ThemeProvider />
-        {children}
+        <CloseHandler />
+        <ThemeProvider>
+          <Header />
+          {children}
+        </ThemeProvider>
       </body>
     </html>
   );
