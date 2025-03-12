@@ -28,8 +28,8 @@ export async function GET() {
 
 export async function POST(request) {
   try {
-    const { userId } = await request.json(); // Correct way to parse JSON
-    const session = await createSession(userId);
+    const { userId, queryId } = await request.json(); // Correct way to parse JSON
+    const session = await createSession(userId, queryId);
     console.log("session created: ", session);
 
     return NextResponse.json({ message: "session created" }, { status: 200 });

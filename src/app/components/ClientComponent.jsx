@@ -35,6 +35,7 @@ function ClientComponent() {
           },
           body: JSON.stringify({
             initData: data,
+            queryId: window.Bale?.WebApp?.initDataUnsafe?.query_id,
             userId: window.Bale?.WebApp?.initDataUnsafe?.user?.id,
           }),
         });
@@ -80,13 +81,8 @@ function ClientComponent() {
   }, [isValidUser]);
 
   const logout = async () => {
-    await fetch("/api/auth/session", { method: "DELETE" })
-      .then((res) => res.json())
-      .then((data) => {
-        console.log(data.message);
-        window.location.href = data.redirectTo; // Redirect after receiving JSON
-        setIsLoggedIn(false); // Update client state to reflect logout
-      });
+    await fetch("/api/auth/session", { method: "DELETE" });
+    setIsLoggedIn(false); // Update client state to reflect logout
   };
 
   if (loadingSession) return <p>Loading session...</p>;

@@ -5,7 +5,7 @@ import { cookies } from "next/headers";
 import { decrypt } from "@/lib/session";
 
 export async function POST(req) {
-  const { initData, userId } = await req.json();
+  const { initData, queryId, userId } = await req.json();
 
   if (!initData) {
     return NextResponse.json(
@@ -19,7 +19,7 @@ export async function POST(req) {
   const cookie = cookieStore.get("session")?.value;
   if (cookie) {
     const session = await decrypt(cookie);
-    if (session.userId == userId) {
+    if (session.queryId == queryId) {
       return NextResponse.json(
         { authFromCache: true, message: "verified from cookies" },
         { status: 200 }
@@ -37,7 +37,7 @@ export async function POST(req) {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ userId: userId }),
+        body: JSON.stringify({ userId: userId, queryId: queryId }),
       }
     );
 
