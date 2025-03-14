@@ -1,7 +1,8 @@
+import { HeroUIProvider } from "@heroui/react";
 import ScriptLoader from "@/app/components/ScriptLoader";
-// import ThemeProvider from "@/app/components/ThemeProvider";
-import { ThemeProvider } from "@/app/components/ThemeContext";
+import { ThemeProvider } from "@/app/context/ThemeContext";
 import Header from "@/app/components/HeaderComponent";
+import { BaleProvider } from "@/app/context/BaleContext";
 // import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
@@ -28,8 +29,12 @@ export default function RootLayout({ children }) {
       >
         <ScriptLoader />
         <ThemeProvider>
-          <Header />
-          {children}
+          <HeroUIProvider>
+            <BaleProvider>
+              <Header />
+              {children}
+            </BaleProvider>
+          </HeroUIProvider>
         </ThemeProvider>
       </body>
     </html>

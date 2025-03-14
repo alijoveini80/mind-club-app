@@ -5,22 +5,96 @@
   --foreground: #171717;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+.dark {
+  --background: #030202;
+  --foreground: #ededed;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+  min-height: 100vh;
+  max-height: 100vh;
+}
+
+@layer components {
+
+  /* .theme-button */
+  .theme-button {
+    @apply transition-colors;
+  }
+
+  :not(.dark) .theme-button {
+    @apply bg-gray-200 text-black hover:bg-gray-300;
+  }
+
+  .dark .theme-button {
+    @apply bg-blue-500 text-white hover:bg-blue-600;
+  }
+
+  /* ..error-card */
+  .error-card {
+    @apply transition-colors;
+  }
+
+  :not(.dark) .error-card {
+    @apply bg-red-100 text-red-800 p-4 rounded border border-red-200;
+  }
+
+  .dark .error-card {
+    @apply bg-red-900 text-red-100 p-4 rounded border border-red-800;
+  }
+
+  /* .last-event-container */
+  .last-event-container {
+    @apply p-4 rounded-lg shadow-md;
+  }
+
+  :not(.dark) .last-event-container {
+    @apply bg-gray-300;
+  }
+
+  .dark .last-event-container {
+    @apply bg-gray-800;
+  }
+
+  /* .event-title */
+  .event-title {
+    @apply text-xl font-semibold mb-2;
+  }
+
+  :not(.dark) .event-title {
+    @apply text-gray-800;
+  }
+
+  .dark .event-title {
+    @apply text-gray-200;
+  }
+
+  /* .event-content */
+  .event-content {
+    @apply p-2 rounded-md;
+  }
+
+  :not(.dark) .event-content {
+    @apply text-gray-600 bg-gray-50;
+  }
+
+  .dark .event-content {
+    @apply text-gray-300 bg-gray-700;
+  }
+
+  /* .hover */
+  .hover-button {
+    @apply transition-all duration-400 ease-in-out cursor-pointer;
+  }
+
+  :not(.dark) .hover-button {
+    @apply hover:bg-gray-100 hover:shadow-sm;
+  }
+
+  .dark .hover-button {
+    @apply hover:bg-gray-600 hover:shadow-md;
+  }
 }

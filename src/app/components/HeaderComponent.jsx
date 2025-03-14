@@ -1,8 +1,7 @@
 "use client";
 import { useState, useEffect } from "react";
 import { Menu, X, Moon, Sun } from "lucide-react";
-// import useDarkMode from "@/app/hooks/useDarkMode";
-import { useTheme } from "@/app/components/ThemeContext";
+import { useTheme } from "@/app/context/ThemeContext";
 
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false);

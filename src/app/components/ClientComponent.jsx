@@ -55,10 +55,11 @@ function ClientComponent() {
       } catch (error) {
         console.log("Validation Error:", error);
         setIsValidUser(false);
-      } finally {
-        setLoadingSession(false); // Validation complete
-        // console.log("setLoadingSession false");
       }
+      // finally {
+      //   setLoadingSession(false); // Validation complete
+      //   console.log("setLoadingSession false");
+      // }
     };
 
     validateUser();
@@ -71,6 +72,7 @@ function ClientComponent() {
         const sessionResponse = await fetch("/api/auth/session");
         if (sessionResponse.ok) {
           setIsLoggedIn(true);
+          router.replace("/dashboard");
         } else {
           setIsLoggedIn(false);
         }
