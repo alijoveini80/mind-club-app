@@ -1,4 +1,6 @@
-@import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 :root {
   --background: #ffffff;
@@ -16,6 +18,25 @@ body {
   font-family: Arial, Helvetica, sans-serif;
   min-height: 100vh;
   max-height: 100vh;
+}
+
+.lucide {
+  width: 2em;
+  height: 2em;
+  stroke-width: 1;
+}
+
+.lucide * {
+  vector-effect: non-scaling-stroke;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 
 @layer components {

@@ -1,3 +1,4 @@
+"use client";
 import {
   Card,
   CardHeader,
@@ -10,7 +11,7 @@ import {
 
 export default function CardComponent() {
   return (
-    <Card className="max-w-[400px]">
+    <Card className="max-w-[100%]">
       <CardHeader className="flex gap-3">
         <Image
           alt="heroui logo"

@@ -13,6 +13,7 @@ function ClientComponent() {
   useEffect(() => {
     // Get initData from Bale WebApp API
     const data = window.Bale?.WebApp?.initData || ""; // Handle cases outside Bale
+    const darkMode = window.Bale?.WebApp?.isDarkMode || ""; //
     setInitData(data);
 
     // Validate user with initData
@@ -20,7 +21,10 @@ function ClientComponent() {
       if (!data) {
         setIsValidUser(false); // Not in Bale context
         setLoadingSession(false);
-        return;
+        router.replace("/home");
+      }
+      if (darkMode !== undefined) {
+        localStorage.setItem("darkMode", darkMode);
       }
       console.log("Validating user with initData: ");
       const unsafeData = window.Bale?.WebApp?.initDataUnsafe || "";

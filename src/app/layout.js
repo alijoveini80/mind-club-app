@@ -25,13 +25,14 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body
+      // dir="rtl"
       // className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <ScriptLoader />
         <ThemeProvider>
           <HeroUIProvider>
             <BaleProvider>
-              <Header />
+              {/* <Header /> */}
               {children}
             </BaleProvider>
           </HeroUIProvider>
