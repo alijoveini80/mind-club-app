@@ -9,7 +9,7 @@ export default function DarkModeButton() {
   return (
     <button
       onClick={() => setDarkMode((prevMode) => !prevMode)}
-      className="p-2 bg-gray-200 dark:bg-gray-700 rounded-full hover:bg-gray-300 dark:hover:bg-gray-600"
+      className="m-2 mt-4 p-2 bg-gray-200 dark:bg-gray-700 rounded-full hover:bg-gray-300 dark:hover:bg-gray-600"
     >
       {darkMode ? (
         <LuSun size={24} color="yellow" className="w-5 h-5" />

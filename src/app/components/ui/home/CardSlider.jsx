@@ -76,7 +76,7 @@ export default function CardSlider() {
   ];
 
   return (
-    <Card className="m-2 mt-1">
+    <Card className="m-2 mt-0">
       <CardHeader className="flex flex-col items-start">
         <div>
           <p className="text-medium">Match Stats</p>

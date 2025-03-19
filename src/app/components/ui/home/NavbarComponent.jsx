@@ -35,7 +35,7 @@ export const AcmeLogo = () => {
 export default function App() {
   return (
     <>
-      <Navbar className="mb-1">
+      <Navbar position="static" className="mb-1">
         {/* <NavbarBrand>
           <AcmeLogo />
           <p className="font-bold text-inherit">ACME</p>

@@ -1,7 +1,7 @@
 import { Button } from "@heroui/button";
 import { verifySession } from "@/lib/dal";
 import ProtectPage from "@/app/components/ProtectPage";
-import EventDisplay from "@/app/components/EventDisplay";
+import EventDisplay from "@/app/components/ui/home/EventDisplay";
 import CardComponent from "@/app/components/CardComponent";
 export default async function Dashboard() {
   const session = await verifySession();

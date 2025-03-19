@@ -76,7 +76,7 @@ function ClientComponent() {
         const sessionResponse = await fetch("/api/auth/session");
         if (sessionResponse.ok) {
           setIsLoggedIn(true);
-          router.replace("/dashboard");
+          router.replace("/home");
         } else {
           setIsLoggedIn(false);
         }

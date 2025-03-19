@@ -27,12 +27,29 @@ export default function CreateJoinRoom() {
         <div className="flex flex-col">
           <p className="text-md">Room</p>
           <p className="text-small text-default-500">5 rooms, 22 players</p>
+          {/* <p className="text-small text-default-500">
+            try creating / joining a room to play with friends.
+          </p> */}
         </div>
       </CardHeader>
       <Divider />
-      <CardBody className="flex flex-col gap-2">
-        <CreateJoinRoomSection section="create" />
-        <CreateJoinRoomSection section="join" />
+      <CardBody className="flex flex-row gap-2">
+        <div className="flex flex-row items-center mt-0">
+          {/* <p className="text-md">Create</p> */}
+          <p className="w-[45%] text-small text-default-600 text-left">
+            try creating / joining a room to play with friends.
+          </p>
+          <div className="grow">
+            <Button className="mx-2" color="primary" variant="flat">
+              Create
+            </Button>
+            <Button color="secondary" variant="flat">
+              Join
+            </Button>
+          </div>
+        </div>
+        {/* <CreateJoinRoomSection section="create" />
+        <CreateJoinRoomSection section="join" /> */}
       </CardBody>
       {/* <Divider /> */}
       {/* <CardFooter>
