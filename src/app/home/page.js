@@ -1,7 +1,7 @@
 import NavbarComponent from "@/app/components/ui/home/NavbarComponent";
 import DarkModeButton from "@/app/components/DarkModeButton";
 import QuizPassComponent from "@/app/components/ui/home/QuizPassComponent";
-import LeaderboardComponent from "@/app/components/ui/home/LeaderboardComponent";
+// import LeaderboardComponent from "@/app/components/ui/home/LeaderboardComponent";
 import CreateJoinRoom from "@/app/components/ui/home/CreateJoinRoomComponent";
 import CardSlider from "@/app/components/ui/home/CardSlider";
 import StartMatchButton from "@/app/components/ui/home/StartMatchButton";
